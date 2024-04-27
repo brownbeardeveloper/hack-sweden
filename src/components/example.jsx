@@ -3,7 +3,6 @@ import getData from '../functions/getData';
 
 export default function ExampleComponent() {
   const [data, setData] = useState(false);
-  const apiUrl = "https://skatteverket.entryscape.net/rowstore/dataset/c67b320b-ffee-4876-b073-dd9236cd2a99"
 
   useEffect(() => {
 
