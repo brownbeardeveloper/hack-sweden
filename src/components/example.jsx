@@ -17,7 +17,7 @@ export default function ExampleComponent() {
   return (
     <div className='flex flex-row justify-center items-center'>
       <p>trying to fetch data...</p>
-      <button className='m-2 p-2 bg-slate-200 border border-slate-600 pointer rounded' 
+      <button className='button' 
       onClick={() => setData(!data)} >
         btn
         </button>

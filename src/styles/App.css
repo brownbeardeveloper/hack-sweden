@@ -6,3 +6,25 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #4A5568; 
+    border: 1px solid #2D3748; 
+    border-radius: 0.25rem;
+    color: #FFF; 
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #2D3748;
+    border-color: #1A202C;
+  }
+  
+  .button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4299E1;
+  }
+  
