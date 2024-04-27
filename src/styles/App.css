@@ -2,6 +2,7 @@
 @import url('./tailwind.css');
 
 body {
+    background-color: var(--bg-color);
     margin: 0;
     padding: 0;
 }
