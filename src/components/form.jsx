@@ -53,7 +53,7 @@ export default function FormComponent() {
                 }
 
                 <label htmlFor={"year"}>År:</label>
-                <input id={"year"} type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023"
+                <input value={year} id={"year"} type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023"
                        step="1"/>
                 <div className='m-2'>
                     <label htmlFor="netSalaryInput">Nettolön </label>
