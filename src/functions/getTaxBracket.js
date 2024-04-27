@@ -7,6 +7,14 @@ export default async function getTaxBracket({kommun, year}) {
     params.append("_offset","0")
 
 
-    return await fetch(url + params).then(resp => resp.json()).then(resp => resp.results[0]["summa, exkl. kyrkoavgift"])
+    return await fetch(url + params).then(resp => resp.json()).then(resp => {
+        return {
+            kommunalSkatt: resp.results[0]["kommunal-skatt"],
+            landstingsSkatt: resp.results[0]["landstings-skatt"],
+            begravningsAvgift: resp.results[0]["begravnings-avgift"],
+            kyrkoAvgift: resp.results[0]["kyrkoavgift"],
+            totalSkattExklusiveKyrkoavgift: resp.results[0]["summa, exkl. kyrkoavgift"],
+            totalSkattInklusiveKyrkoavgift: resp.results[0]["summa, inkl. kyrkoavgift"]
+        }})
   }
   
