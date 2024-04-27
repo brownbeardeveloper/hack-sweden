@@ -14,7 +14,7 @@ export default function FormComponent() {
     const [trossamfund, setTrossamfund] = useState();
     const religiousPlaces  = taxBrackets? taxBrackets.map((bracket) => bracket["församling"]): ""
     const netSalary = grossSalary - (grossSalary/100 * taxDeduction)
-    const [taxBracket] = trossamfund? taxBrackets.filter(bracket => bracket["församling"] === trossamfund): taxBrackets[0];
+    const [taxBracket] = trossamfund? taxBrackets.filter(bracket => bracket["församling"] === trossamfund): [taxBrackets[0]];
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -26,9 +26,7 @@ export default function FormComponent() {
         setTaxBrackets(await getTaxBrackets({kommun: event.target.value, year: year}))
     }
     async function handleReligiousPlaceChange(event) {
-        console.log(taxBracket)
         setTrossamfund(event.target.value)
-
     }
 
 
