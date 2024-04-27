@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import getData from '../functions/getData';
+import getDeductionPercentage from "../functions/getDeductionPercentage";
 
 export default function ExampleComponent() {
   const [data, setData] = useState(false);
@@ -20,6 +21,7 @@ export default function ExampleComponent() {
       onClick={() => setData(!data)} >
         btn
         </button>
+        <button className={'button'} type={"button"} onClick={() => getDeductionPercentage({table:"32",year:"2023",income:30000})}>deduction</button>
     </div>
   );
 }

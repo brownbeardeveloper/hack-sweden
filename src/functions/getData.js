@@ -1,10 +1,12 @@
 export default async function getData({kommun, year}) {
-   const url = process.env.REACT_APP_SKATTESATS_API
-       url.searchParams.append("kommun",kommun)
-    url.searchParams.append("år",year)
-    url.searchParams.append("_limit","100")
-    url.searchParams.append("_offset","0")
+   const url = new URL(process.env.REACT_APP_SKATTESATS_API)
+    const params = new URLSearchParams()
 
-    return await fetch(url).then(resp => resp.json())
+    params.append("kommun", kommun)
+    params.append("år", year)
+    params.append("_limit","100")
+    params.append("_offset","0")
+
+    return await fetch(url + params).then(resp => resp.json())
   }
   
