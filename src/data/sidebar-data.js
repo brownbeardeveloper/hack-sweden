@@ -4,19 +4,19 @@ import * as BiIcons from 'react-icons/bi'
 
 const sidebarData = [
     {
-        title: 'Home',
+        title: 'Hem',
         path: '/',
         icon : <AiIcons.AiFillHome />,
 
     },
     {
-        title: 'Contact',
+        title: 'Kontakt',
         path: '/contact',
         icon : <BiIcons.BiWorld />,
 
     },
     {
-        title: 'About us',
+        title: 'Om oss',
         path: '/about-us',
         icon : <BiIcons.BiWorld />,
 

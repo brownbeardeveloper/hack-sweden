@@ -22,7 +22,7 @@ export default function Navbar() {
                     <li className="px-4 py-2 absolute top-0 right-0">
                         <button className="text-gray-800 flex items-center" onClick={showSidebar}>
                             <AiOutlineClose className="text-xl mr-2" />
-                            Hide
+                            Dölj
                         </button>
                     </li>
 
