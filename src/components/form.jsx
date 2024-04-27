@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
-import getTaxBracket from "../functions/getTaxBracket";
 import getDeductionPercentage from "../functions/getDeductionPercentage";
-import getReligousPlace from "../functions/getReligousPlace";
 import ReligiousList from "./ReligousList";
+import getTaxBrackets from "../functions/getTaxBrackets";
 
 export default function FormComponent() {
-    const [taxBracket, setTaxBracket] = useState({});
+    const [taxBrackets, setTaxBrackets] = useState([]);
     const [year, setYear] = useState(2023);
     const [city, setCity] = useState('MALMÖ');
     const [grossSalary, setGrossSalary] = useState(0);
     const [taxDeduction, setTaxDeduction] = useState(0);
     const [kyrkoAvgift, setKyrkoAvgift] = useState(false);
-    const netSalary = grossSalary - (grossSalary/100 * taxDeduction)
     const [taxPercentage, setTaxPercentage] = useState(0);
-    const [religiousPlaces, setReligiousPlaces] = useState([]);
+    const [trossamfund, setTrossamfund] = useState();
+    const religiousPlaces  = taxBrackets? taxBrackets.map((bracket) => bracket["församling"]): ""
+    const netSalary = grossSalary - (grossSalary/100 * taxDeduction)
+    const [taxBracket] = trossamfund? taxBrackets.filter(bracket => bracket["församling"] === trossamfund): taxBrackets[0];
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -22,8 +23,11 @@ export default function FormComponent() {
     }
     async function handleCityChange(event) {
         setCity(event.target.value)
-        setReligiousPlaces(await getReligousPlace({kommun: event.target.value, year: year}))
-        setTaxBracket(await getTaxBracket({kommun: event.target.value, year: year}))
+        setTaxBrackets(await getTaxBrackets({kommun: event.target.value, year: year}))
+    }
+    async function handleReligiousPlaceChange(event) {
+        console.log(taxBracket)
+        setTrossamfund(event.target.value)
 
     }
 
@@ -42,7 +46,8 @@ export default function FormComponent() {
                 </select>
                 { kyrkoAvgift?
                 <label htmlFor={"stad"}>Trossamfund
-                <select id={"trossamfund"}>
+                <select id={"trossamfund"}
+                        onChange={event => handleReligiousPlaceChange(event)}>
                     <ReligiousList places={religiousPlaces} />
                 </select> </label>: ""
                 }
@@ -70,7 +75,7 @@ export default function FormComponent() {
                         onChange={async (e) => {
                             setGrossSalary(e.target.value)
                             setTaxDeduction(await getDeductionPercentage({
-                                table: Math.round(kyrkoAvgift ? taxBracket.totalSkattInklusiveKyrkoavgift : taxBracket.totalSkattExklusiveKyrkoavgift),
+                                table: Math.round(kyrkoAvgift ? taxBrackets.totalSkattInklusiveKyrkoavgift : taxBrackets.totalSkattExklusiveKyrkoavgift),
                                 year: year,
                                 income: e.target.value
                             }))
@@ -94,16 +99,19 @@ export default function FormComponent() {
                 </div>
                 <button type="submit" className='button'>Submit</button>
             </form>
-            <div>
-                <h1>{taxDeduction}% reduction each month</h1>
-                <p>skattetabell: {Math.round(kyrkoAvgift? taxBracket.totalSkattInklusiveKyrkoavgift: taxBracket.totalSkattExklusiveKyrkoavgift)}</p>
-                <p>Kommunal skatt: {taxBracket.kommunalSkatt}</p>
-                <p>Landstingsskatt: {taxBracket.landstingsSkatt}</p>
-                <p>Begravnings avgift: {taxBracket.begravningsAvgift}</p>
-                <p>Kyrkoavgift: {kyrkoAvgift ? taxBracket.kyrkoAvgift : 0}</p>
-                <p>Totalt: {kyrkoAvgift ? taxBracket.totalSkattInklusiveKyrkoavgift : taxBracket.totalSkattExklusiveKyrkoavgift}</p>
-                <p>Nettolön: {netSalary}</p>
-            </div>
+            { taxBracket?
+                <div>
+                    <h1>{taxDeduction}% reduction each month</h1>
+                    <p>skattetabell: {Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"])}</p>
+                    <p>Kommunal skatt: {taxBracket["kommunal-skatt"]}</p>
+                    <p>Landstingsskatt: {taxBracket["landstings-skatt"]}</p>
+                    <p>Begravnings avgift: {taxBracket["begravnings-avgift"]}</p>
+                    <p>Kyrkoavgift: {kyrkoAvgift ? taxBracket["kyrkoavgift"] : 0}</p>
+                    <p>Totalt: {kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"]: taxBracket["summa, exkl. kyrkoavgift"]}</p>
+                    <p>Nettolön: {netSalary}</p>
+                </div>
+                : ""
+            }
         </div>
     );
 }
