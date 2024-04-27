@@ -6,7 +6,7 @@ export default async function getDeductionPercentage({table, year, income}){
     params.append("_limit","100")
     params.append("_offset","0")
     const resp = await fetch(url + params).then(resp => resp.json())
-    return resp.results.filter(e => e["ink from"] < income && e["ink tom"] > income).map(e => e["%"])
+    return resp.results.filter(e => e["ink from"] < Number(income) && e["ink tom"] > Number(income)).map(e => e["%"])
 
 
 
