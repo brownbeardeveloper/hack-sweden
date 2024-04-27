@@ -3,8 +3,10 @@ import getTaxBracket from "../functions/getTaxBracket";
 import getDeductionPercentage from "../functions/getDeductionPercentage";
 
 export default function FormComponent() {
-    const [netSalary, setNetSalary] = useState('');
+    //const [netSalary, setNetSalary] = useState(0);
     const [grossSalary, setGrossSalary] = useState(0);
+    const [taxDeduction, setTaxDeduction] = useState(0);
+    const netSalary = grossSalary - (grossSalary/100 * taxDeduction)
     const [taxPercentage, setTaxPercentage] = useState(0);
     const [year, setYear] = useState(2023);
     const [city, setCity] = useState('MALMÖ');
@@ -40,7 +42,7 @@ export default function FormComponent() {
                             setGrossSalary(e.target.value)
                             setTaxPercentage(
                                 await getTaxBracket({kommun: city, year: year}))
-                            console.log(await getDeductionPercentage({
+                            setTaxDeduction(await getDeductionPercentage({
                                 table: Math.floor(taxPercentage),
                                 year: year,
                                 income: e.target.value
@@ -65,7 +67,7 @@ export default function FormComponent() {
                 </div>
                 <button type="submit" className='button'>Submit</button>
             </form>
-            <h1>{taxPercentage}</h1>
+            <h1>{taxDeduction}% reduction each month</h1>
         </div>
     );
 }
