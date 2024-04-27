@@ -9,7 +9,7 @@ export default function Navbar() {
     return (
         <>
             <header className="bg-slate-200 flex justify-between items-center py-3 px-4">
-                <button className="text-gray-800 text-3xl" onClick={showSidebar}>
+                <button className="text-gray-800 text-3xl" onClick={() => setSidebar(!sidebar)}>
                     <AiOutlineBars />
                 </button>
             </header>
@@ -19,24 +19,26 @@ export default function Navbar() {
                 z-50 transition-all duration-300 ease-in-out bg-slate-200`}
             >
                 <ul className="flex flex-col items-start pt-20">
-                    <li className="px-4 py-2 absolute top-0 right-0">
-                        <button className="text-gray-800 flex items-center" onClick={showSidebar}>
-                            <AiOutlineClose className="text-xl mr-2" />
+                    <li className="px-4 py-2 absolute top-0 right-0 text-2xl">
+                        <button className="text-gray-800 flex items-center" onClick={() => setSidebar(!sidebar)}>
+                            <AiOutlineClose className="mr-2" />
                             Dölj
                         </button>
                     </li>
 
+
                     {sidebarData.map((item, index) => (
-                        <li key={index} className="px-4 py-2 w-full hover:bg-blue-700 hover:text-white">
-                            <a
-                                href={item.path} // Changed href to to
-                                className="flex items-center px-2 py-1"
-                                onClick={showSidebar}
-                            >
+                        <a
+                        key={index}
+                        href={item.path} // Changed href to to
+                        className="flex items-center w-96 pl-10 hover:bg-blue-700 hover:text-white"
+                        onClick={() => setSidebar(!sidebar)}
+                    >
+                        <li className="flex flex-row justify-center items-center py-5 text-2xl">
                                 {item.icon}
-                                <span className="ml-2">{item.title}</span>
-                            </a>
+                                <span className="ml-4">{item.title}</span>
                         </li>
+                        </a>
                     ))}
                 </ul>
             </nav>
