@@ -75,7 +75,7 @@ export default function FormComponent() {
                         onChange={async (e) => {
                             setGrossSalary(e.target.value)
                             setTaxDeduction(await getDeductionPercentage({
-                                table: Math.round(kyrkoAvgift ? taxBrackets.totalSkattInklusiveKyrkoavgift : taxBrackets.totalSkattExklusiveKyrkoavgift),
+                                table: Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"]: taxBrackets["summa, exkl. kyrkoavgift"]),
                                 year: year,
                                 income: e.target.value
                             }))
