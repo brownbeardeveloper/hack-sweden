@@ -20,6 +20,10 @@ export default function FormComponent() {
     return (
         <div className='flex flex-row justify-center items-center'>
             <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center'>
+                <select>
+                    <option selected={true}>Malmö</option>
+                </select>
+                <input type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023" step="1"/>
                 <div className='m-2'>
                     <label htmlFor="netSalaryInput">Nettolön </label>
                     <input
@@ -27,7 +31,6 @@ export default function FormComponent() {
                         id="netSalaryInput"
                         min="0"
                         value={netSalary}
-                        onChange={(e) => setNetSalary(e.target.value)}
                     />
 
                 </div>
