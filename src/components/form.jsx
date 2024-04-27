@@ -43,7 +43,7 @@ export default function FormComponent() {
                             console.log(await getDeductionPercentage({
                                 table: Math.floor(taxPercentage),
                                 year: year,
-                                income: grossSalary
+                                income: e.target.value
                             }))
                         }}
                     />
