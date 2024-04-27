@@ -6,7 +6,7 @@ export default function ExampleComponent() {
 
   useEffect(() => {
 
-    getData({kommun:"MALMÖ"}).then((data) => {
+    getData({kommun:"MALMÖ", year: "2023"}).then((data) => {
         console.log(data); 
       });
       
