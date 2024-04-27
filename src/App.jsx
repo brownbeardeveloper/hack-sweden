@@ -1,10 +1,11 @@
 import Navbar from './components/navbar.jsx'
+import ExampleComponent from './components/example.jsx'
 
 export default function App() {
   return (
-    <div className="">
+    <div className="App">
       <Navbar />
-      <h1>Hello, World!</h1>
+      <ExampleComponent />
     </div>
   );
 }
