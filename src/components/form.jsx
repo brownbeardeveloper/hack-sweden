@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import getTaxBracket from "../functions/getTaxBracket";
 import getDeductionPercentage from "../functions/getDeductionPercentage";
+import getReligousPlace from "../functions/getReligousPlace";
+import ReligiousList from "./ReligousList";
 
 export default function FormComponent() {
     const [taxBracket, setTaxBracket] = useState({});
@@ -11,11 +13,18 @@ export default function FormComponent() {
     const [kyrkoAvgift, setKyrkoAvgift] = useState(false);
     const netSalary = grossSalary - (grossSalary/100 * taxDeduction)
     const [taxPercentage, setTaxPercentage] = useState(0);
+    const [religiousPlaces, setReligiousPlaces] = useState([]);
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Nettolön:", netSalary);
         console.log("Kommunalskatt i procent:", taxPercentage);
+    }
+    async function handleCityChange(event) {
+        setCity(event.target.value)
+        setReligiousPlaces(await getReligousPlace({kommun: event.target.value, year: year}))
+        setTaxBracket(await getTaxBracket({kommun: event.target.value, year: year}))
+
     }
 
 
@@ -27,13 +36,16 @@ export default function FormComponent() {
                 <input id={"medlemITrossamfund"} type={"checkbox"} value={kyrkoAvgift}
                        onChange={event => setKyrkoAvgift(event.target.checked)}/>
                 <label htmlFor={"stad"}>Stad</label>
-                <select id={"stad"}>
-                    <option selected={true}>Malmö</option>
+                <select onChange={event => handleCityChange(event)} id={"stad"}>
+                    <option value={"MALMÖ"} selected={true}>Malmö</option>
+                    <option value={"LANDSKRONA"}>Landskrona</option>
                 </select>
-                <label htmlFor={"stad"}>Trossamfund</label>
+                { kyrkoAvgift?
+                <label htmlFor={"stad"}>Trossamfund
                 <select id={"trossamfund"}>
-
-                </select>
+                    <ReligiousList places={religiousPlaces} />
+                </select> </label>: ""
+                }
 
                 <label htmlFor={"year"}>År:</label>
                 <input id={"year"} type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023"
@@ -57,8 +69,6 @@ export default function FormComponent() {
                         value={grossSalary}
                         onChange={async (e) => {
                             setGrossSalary(e.target.value)
-                            setTaxBracket(
-                                await getTaxBracket({kommun: city, year: year}))
                             setTaxDeduction(await getDeductionPercentage({
                                 table: Math.round(kyrkoAvgift ? taxBracket.totalSkattInklusiveKyrkoavgift : taxBracket.totalSkattExklusiveKyrkoavgift),
                                 year: year,
