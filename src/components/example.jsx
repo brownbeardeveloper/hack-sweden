@@ -7,7 +7,7 @@ export default function ExampleComponent() {
 
   useEffect(() => {
 
-    getData(apiUrl).then((data) => {
+    getData({kommun:"MALMÖ"}).then((data) => {
         console.log(data); 
       });
       
