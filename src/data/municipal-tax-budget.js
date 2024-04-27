@@ -1,4 +1,5 @@
-const budgetAllocation = {
+// Malmö's municipal tax budget allocation
+const municipalTaxBudgetAllocation = {
     preschoolPrimarySecondaryAndAdultEducation: 0.46,
     elderlyCareAndCareForPersonsWithDisabilities: 0.26,
     individualAndFamilyCare: 0.15,
@@ -7,4 +8,4 @@ const budgetAllocation = {
     otherActivities: 0.02
 };
 
-export default budgetAllocation;
+export default municipalTaxBudgetAllocation;
