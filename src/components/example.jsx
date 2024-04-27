@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import getData from '../functions/getData';
+import getTaxBracket from '../functions/getTaxBracket';
 import getDeductionPercentage from "../functions/getDeductionPercentage";
 
 export default function ExampleComponent() {
@@ -7,7 +7,7 @@ export default function ExampleComponent() {
 
   useEffect(() => {
 
-    getData({kommun:"MALMÖ", year: "2023"}).then((data) => {
+    getTaxBracket({kommun:"MALMÖ", year: "2023"}).then((data) => {
         console.log(data); 
       });
       
