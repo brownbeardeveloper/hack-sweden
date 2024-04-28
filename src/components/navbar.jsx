@@ -4,7 +4,6 @@ import sidebarData from "../data/sidebar-data";
 
 export default function Navbar() {
     const [sidebar, setSidebar] = useState(false);
-    const showSidebar = () => setSidebar(!sidebar);
 
     return (
         <>

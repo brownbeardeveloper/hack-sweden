@@ -28,3 +28,6 @@ body {
     box-shadow: 0 0 0 2px #4299E1;
   }
   
+  .bg-linear-gradient {
+    background: var(--bg-linear-gradient);
+  }

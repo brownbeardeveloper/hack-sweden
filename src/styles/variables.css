@@ -1,3 +1,4 @@
 :root {
     --bg-color: #ffbf00; /* Default background color */
+    --bg-linear-gradient: linear-gradient(to right, #CCD6DD, #7D8597);
   }
