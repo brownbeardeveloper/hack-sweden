@@ -47,7 +47,7 @@ export default function FormComponent() {
     return (
         <div className='flex flex-row justify-center items-center'>
             <form
-                className='flex flex-col justify-center items-start bg-linear-gradient rounded p-8 border border-slate-400'>
+                className='flex flex-col justify-center items-start bg-linear-gradient rounded-lg p-8 border border-slate-400'>
 
                 <div className='flex flex-row mr-2 my-1'>
                     <label className="mx-1" htmlFor={"medlemITrossamfund"}>Medlem i Trossamfund?</label>
@@ -97,7 +97,7 @@ export default function FormComponent() {
 
             </form>
 
-            {taxBracket ?
+            {taxBracket &&
                 <div className="bg-gray-100 p-8 rounded-lg shadow-md">
                     <h1 className="text-xl font-bold mb-4">{taxDeduction} reduction each month</h1>
                     <p>skattetabell: {Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"])}</p>
@@ -116,7 +116,6 @@ export default function FormComponent() {
                     <p>Kyrkoavgift: {Math.round(kyrkoAvgift ? taxDeduction * (taxBracket["kyrkoavgift"] / 100) : 0)}</p>
                     <p>Nettolön: {netSalary}</p>
                 </div>
-                : ""
             }
         </div>
     );
