@@ -9,7 +9,7 @@ export default function Home() {
   return (
   <>
     <ExampleComponent />
-    <FormComponent information={information} setInformation={setInformation} />
+    <FormComponent setInformation={setInformation} />
     <ListComponent information={information} />
   </>
   );

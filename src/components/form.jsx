@@ -3,7 +3,7 @@ import getDeductionPercentage from "../functions/getDeductionPercentage";
 import ReligiousList from "./ReligousList";
 import getTaxBrackets from "../functions/getTaxBrackets";
 
-export default function FormComponent({ information, setInformation }) {
+export default function FormComponent({ setInformation }) {
     const [taxBrackets, setTaxBrackets] = useState([]);
     const [year, setYear] = useState(2023);
     const [city, setCity] = useState('MALMÖ');
