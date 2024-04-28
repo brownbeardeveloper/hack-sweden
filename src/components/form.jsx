@@ -58,8 +58,10 @@ export default function FormComponent() {
                 <div className='flex flex-row mr-2 my-1'>
                     <label className="mx-1" htmlFor={"stad"}>Stad</label>
                     <select className="mx-1" onChange={event => handleCityChange(event)} id={"stad"}>
-                        <option value={"MALMÖ"} selected={true}>Malmö</option>
+                        <option disabled={true} selected={true}></option>
+                        <option value={"MALMÖ"}>Malmö</option>
                         <option value={"LANDSKRONA"}>Landskrona</option>
+
                     </select>
                 </div>
 
