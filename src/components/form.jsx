@@ -3,7 +3,7 @@ import getDeductionPercentage from "../functions/getDeductionPercentage";
 import ReligiousList from "./ReligousList";
 import getTaxBrackets from "../functions/getTaxBrackets";
 
-export default function FormComponent({ taxInfoBrackets, setTaxInfoBrackets }) {
+export default function FormComponent({ information, setInformation }) {
     const [taxBrackets, setTaxBrackets] = useState([]);
     const [year, setYear] = useState(2023);
     const [city, setCity] = useState('MALMÖ');
@@ -14,14 +14,23 @@ export default function FormComponent({ taxInfoBrackets, setTaxInfoBrackets }) {
     const [trossamfund, setTrossamfund] = useState();
     const religiousPlaces = taxBrackets ? taxBrackets.map((bracket) => bracket["församling"]) : ""
     const netSalary = grossSalary - (grossSalary / 100 * taxDeduction)
-    const [taxBracket] = trossamfund? taxBrackets.filter(bracket => bracket["församling"] === trossamfund): [taxBrackets[0]];
+    const [taxBracket] = trossamfund ? taxBrackets.filter(bracket => bracket["församling"] === trossamfund) : [taxBrackets[0]];
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Nettolön:", netSalary);
         console.log("Kommunalskatt i procent:", taxPercentage);
 
-
+        setInformation({
+            netSalary: netSalary,
+            taxPercentage: taxPercentage,
+            taxTable: Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"]),
+            localTax: taxBracket["kommunal-skatt"],
+            countyTax: taxBracket["landstings-skatt"],
+            funeralFee: taxBracket["begravnings-avgift"],
+            churchFee: kyrkoAvgift ? taxBracket["kyrkoavgift"] : 0,
+            total: kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"],
+        });
     }
     async function handleCityChange(event) {
         setCity(event.target.value)

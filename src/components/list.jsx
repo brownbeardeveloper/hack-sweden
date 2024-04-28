@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import getDeductionPercentage from "../functions/getDeductionPercentage";
-import ReligiousList from "./ReligousList";
-import getTaxBrackets from "../functions/getTaxBrackets";
-
-export default function List({ taxBracket }) {
+export default function ListComponent({ information }) {
 
     return (
         <>
-            {taxBracket &&
-                <div>
-                    <h1>{taxDeduction}% reduction each month</h1>
-                    <p>skattetabell: {Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"])}</p>
-                    <p>Kommunal skatt: {taxBracket["kommunal-skatt"]}</p>
-                    <p>Landstingsskatt: {taxBracket["landstings-skatt"]}</p>
-                    <p>Begravnings avgift: {taxBracket["begravnings-avgift"]}</p>
-                    <p>Kyrkoavgift: {kyrkoAvgift ? taxBracket["kyrkoavgift"] : 0}</p>
-                    <p>Totalt: {kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"]}</p>
-                    <p>Nettolön: {netSalary}</p>
-                </div>
-            }
+            {information && (
+                <>
+                    <p>list</p>
+                    <ul>
+                        <li>Skatt: {information.taxPercentage}%</li>
+                        <li>Skattetabell: {information.taxTable}</li>
+                        <li>Kommunal skatt: {information.localTax}</li>
+                        <li>Landstingsskatt: {information.countyTax}</li>
+                        <li>Begravningsavgift: {information.funeralFee}</li>
+                        <li>Kyrkoavgift: {information.churchFee}</li>
+                        <li>Totalt: {information.total}</li>
+                        <li>Nettolön: {information.netSalary}</li>
+                    </ul>
+                </>
+            )}
+
         </>
     );
 }

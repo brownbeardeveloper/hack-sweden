@@ -4,13 +4,13 @@ import ListComponent from '../components/list.jsx';
 import React, { useState } from 'react';
 
 export default function Home() {
-  const [taxInfoBrackets, setTaxInfoBrackets] = useState([]);
+  const [information, setInformation] = useState([]);
 
   return (
   <>
     <ExampleComponent />
-    <FormComponent taxInfoBrackets={taxInfoBrackets} setTaxBrackets={setTaxInfoBrackets} />
-    <ListComponent taxInfoBrackets={taxInfoBrackets} />
+    <FormComponent information={information} setInformation={setInformation} />
+    <ListComponent information={information} />
   </>
   );
 }
