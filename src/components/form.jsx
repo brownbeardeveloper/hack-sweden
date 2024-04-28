@@ -23,6 +23,11 @@ export default function FormComponent() {
         infrastructureAndFirstResponse: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] / 100) * 0.05),
         other: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] / 100) * 0.02)
     } : {}
+    const regionalTax = taxBracket ? {
+        regionalDevelopment: Math.round(taxDeduction * (taxBracket["landstings-skatt"] / 100) * (4363.9 / 48872)),
+            healthCare: Math.round(taxDeduction * (taxBracket["landstings-skatt"] / 100) * (42463.3 / 48872)),
+            operationsAndOther: Math.round(taxDeduction * (taxBracket["landstings-skatt"] / 100) * (2044.8 / 48872))
+        } : {}
 
     async function handleOnGrossPayChange(event) {
         setGrossSalary(event.target.value)
@@ -110,8 +115,12 @@ export default function FormComponent() {
                         <li>Gata, park och räddningstjänst: {communalTax.infrastructureAndFirstResponse}</li>
                         <li>Övrig verksamhet: {communalTax.other}</li>
                     </ul>
-                    <p>Total: {communalTax.education + communalTax.elderCare + communalTax.socialCare + communalTax.culture + communalTax.infrastructureAndFirstResponse + communalTax.other}</p>
                     <p>Landstingsskatt: {Math.round(taxDeduction * (taxBracket["landstings-skatt"] / 100))}</p>
+                    <ul className="list-disc pl-4 mb-4">
+                        <li>Regional utveckling: {regionalTax.regionalDevelopment}</li>
+                        <li>Hälso- och sjukvård: {regionalTax.healthCare}</li>
+                        <li>Verksamhetsstöd/övriga: {regionalTax.operationsAndOther}</li>
+                    </ul>
                     <p>Begravnings avgift: {Math.round(taxDeduction * (taxBracket["begravnings-avgift"] / 100))}</p>
                     <p>Kyrkoavgift: {Math.round(kyrkoAvgift ? taxDeduction * (taxBracket["kyrkoavgift"] / 100) : 0)}</p>
                     <p>Nettolön: {netSalary}</p>
