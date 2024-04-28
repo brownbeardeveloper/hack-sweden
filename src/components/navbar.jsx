@@ -28,15 +28,18 @@ export default function Navbar() {
 
                     {sidebarData.map((item, index) => (
                         <a
-                        key={index}
-                        href={item.path} // Changed href to to
-                        className="flex items-center w-96 pl-10 hover:bg-blue-700 hover:text-white"
-                        onClick={() => setSidebar(!sidebar)}
-                    >
-                        <li className="flex flex-row justify-center items-center py-5 text-2xl">
+                            key={index}
+                            href={item.path} // Changed href to to
+                            className="flex items-center w-96 pl-10 hover:bg-neutral-400 hover:text-white"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSidebar(!sidebar);
+                            }}
+                        >
+                            <li className="flex flex-row justify-center items-center py-5 text-2xl">
                                 {item.icon}
                                 <span className="ml-4">{item.title}</span>
-                        </li>
+                            </li>
                         </a>
                     ))}
                 </ul>
