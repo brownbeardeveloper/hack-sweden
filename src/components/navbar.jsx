@@ -25,7 +25,6 @@ export default function Navbar() {
                         </button>
                     </li>
 
-
                     {sidebarData.map((item, index) => (
                         <a
                             key={index}
