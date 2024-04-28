@@ -50,15 +50,15 @@ export default function FormComponent() {
 
 
     return (
-        <div className='flex flex-row justify-center items-center'>
-            <form
-                className='flex flex-col justify-center items-start bg-linear-gradient rounded-lg p-8 border border-slate-400'>
+            <div className='flex flex-row justify-center items-center'>
+                <form
+                    className='flex flex-col justify-center items-start bg-linear-gradient rounded-lg p-8 border border-slate-400'>
 
-                <div className='flex flex-row mr-2 my-1'>
-                    <label className="mx-1" htmlFor={"medlemITrossamfund"}>Medlem i Trossamfund?</label>
-                    <input className="mx-1" id={"medlemITrossamfund"} type={"checkbox"} value={kyrkoAvgift}
-                        onChange={event => setKyrkoAvgift(event.target.checked)} />
-                </div>
+                    <div className='flex flex-row mr-2 my-1'>
+                        <label className="mx-1" htmlFor={"medlemITrossamfund"}>Medlem i Trossamfund?</label>
+                        <input className="mx-1" id={"medlemITrossamfund"} type={"checkbox"} value={kyrkoAvgift}
+                            onChange={event => setKyrkoAvgift(event.target.checked)} />
+                    </div>
 
                 <div className='flex flex-row mr-2 my-1'>
                     <label className="mx-1" htmlFor={"stad"}>Stad</label>
@@ -71,22 +71,22 @@ export default function FormComponent() {
                 </div>
 
 
-                {kyrkoAvgift &&
-                    <div className='flex flex-row mr-2 my-1'>
-                        <label className="mx-1" htmlFor={"stad"}>Trossamfund
-                            <select id={"trossamfund"}
-                                onChange={event => handleReligiousPlaceChange(event)}>
-                                <ReligiousList places={religiousPlaces} />
-                            </select>
-                        </label>
-                    </div>
-                }
+                    {kyrkoAvgift &&
+                        <div className='flex flex-row mr-2 my-1'>
+                            <label className="mx-1" htmlFor={"stad"}>Trossamfund
+                                <select id={"trossamfund"}
+                                    onChange={event => handleReligiousPlaceChange(event)}>
+                                    <ReligiousList places={religiousPlaces} />
+                                </select>
+                            </label>
+                        </div>
+                    }
 
-                <div className='flex flex-row mr-2 my-1'>
-                    <label className="mx-1" htmlFor={"year"}>År:</label>
-                    <input className="mx-1" value={year} id={"year"} type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023"
-                        step="1" />
-                </div>
+                    <div className='flex flex-row mr-2 my-1'>
+                        <label className="mx-1" htmlFor={"year"}>År:</label>
+                        <input className="mx-1" value={year} id={"year"} type="number" onChange={event => setYear(event.target.value)} min="2000" max="2023"
+                            step="1" />
+                    </div>
 
                 { city !== undefined ?
                 <div className='flex flex-row mr-2 my-1'>
