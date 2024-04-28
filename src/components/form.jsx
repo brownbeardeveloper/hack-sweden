@@ -3,7 +3,7 @@ import getDeductionPercentage from "../functions/getDeductionPercentage";
 import ReligiousList from "./ReligousList";
 import getTaxBrackets from "../functions/getTaxBrackets";
 
-export default function FormComponent() {
+export default function FormComponent({ taxInfoBrackets, setTaxInfoBrackets }) {
     const [taxBrackets, setTaxBrackets] = useState([]);
     const [year, setYear] = useState(2023);
     const [city, setCity] = useState('MALMÖ');
@@ -14,12 +14,14 @@ export default function FormComponent() {
     const [trossamfund, setTrossamfund] = useState();
     const religiousPlaces = taxBrackets ? taxBrackets.map((bracket) => bracket["församling"]) : ""
     const netSalary = grossSalary - (grossSalary / 100 * taxDeduction)
-    const [taxBracket] = trossamfund ? taxBrackets.filter(bracket => bracket["församling"] === trossamfund) : [taxBrackets[0]];
+    const [taxBracket] = trossamfund? taxBrackets.filter(bracket => bracket["församling"] === trossamfund): [taxBrackets[0]];
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log("Nettolön:", netSalary);
         console.log("Kommunalskatt i procent:", taxPercentage);
+
+
     }
     async function handleCityChange(event) {
         setCity(event.target.value)
@@ -67,7 +69,7 @@ export default function FormComponent() {
                 </div>
 
                 <div className='flex flex-row mr-2 my-1'>
-                    <label className="mr-2 my-1" htmlFor="netSalaryInput">Nettolön </label>
+                    <label className="mx-1" htmlFor="netSalaryInput">Nettolön</label>
                     <input
                         type="number"
                         id="netSalaryInput"
@@ -77,7 +79,7 @@ export default function FormComponent() {
                 </div>
 
                 <div className='flex flex-row mr-2 my-1'>
-                    <label htmlFor="grossSalaryInput">Bruttolön</label>
+                    <label className='mx-1' htmlFor="grossSalaryInput">Bruttolön</label>
                     <input
                         type="number"
                         id="grossSalaryInput"
