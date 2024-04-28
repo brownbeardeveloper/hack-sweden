@@ -10,26 +10,20 @@ export default function FormComponent() {
     const [grossSalary, setGrossSalary] = useState(0);
     const [taxDeduction, setTaxDeduction] = useState(0);
     const [kyrkoAvgift, setKyrkoAvgift] = useState(false);
-    const [taxPercentage, setTaxPercentage] = useState(0);
     const [trossamfund, setTrossamfund] = useState();
     const religiousPlaces = taxBrackets ? taxBrackets.map((bracket) => bracket["församling"]) : ""
     const [taxBracket] = trossamfund ? taxBrackets.filter(bracket => bracket["församling"] === trossamfund) : [taxBrackets[0]];
     // based on : https://malmo.se/Om-Malmo-stad/Malmo-stads-budget/Sa-anvands-dina-skattepengar.html
     const netSalary = taxBracket?grossSalary- taxDeduction : 0
     const communalTax = taxBracket? {
-        education: (taxDeduction * (taxBracket["kommunal-skatt"] /100) * 0.46),
-        elderCare: (taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.26),
-        socialCare: (taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.15),
-        culture: (taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.06),
-        infrastructureAndFirstResponse: (taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.05),
-        other: (taxDeduction *(taxBracket["kommunal-skatt"] /100) * 0.02)
+        education: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] /100) * 0.46),
+        elderCare: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.26),
+        socialCare: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.15),
+        culture: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.06),
+        infrastructureAndFirstResponse: Math.round(taxDeduction * (taxBracket["kommunal-skatt"] /100) *0.05),
+        other: Math.round(taxDeduction *(taxBracket["kommunal-skatt"] /100) * 0.02)
     } : {}
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log("Nettolön:", netSalary);
-        console.log("Kommunalskatt i procent:", taxPercentage);
-    }
     async function handleOnGrossPayChange(event){
         setGrossSalary(event.target.value)
 
@@ -52,7 +46,7 @@ export default function FormComponent() {
 
     return (
         <div className='flex flex-row justify-center items-center'>
-            <form onSubmit={handleSubmit}
+            <form
                   className='flex flex-col justify-center items-start bg-linear-gradient rounded p-8 border border-slate-400'>
 
                 <div className='flex flex-row mr-2 my-1'>
@@ -87,15 +81,6 @@ export default function FormComponent() {
                         step="1" />
                 </div>
 
-                <div className='flex flex-row mr-2 my-1'>
-                    <label className="mx-1" htmlFor="netSalaryInput">Nettolön</label>
-                    <input
-                        type="number"
-                        id="netSalaryInput"
-                        min="0"
-                        value={netSalary}
-                    />
-                </div>
 
                 <div className='flex flex-row mr-2 my-1'>
                     <label className='mx-1' htmlFor="grossSalaryInput">Bruttolön</label>
@@ -108,28 +93,15 @@ export default function FormComponent() {
                     />
                 </div>
 
-                <div className='flex flex-row mr-2 my-1'>
-                    <label className="mx-1" htmlFor="percentageTaxInput">Kommunalskatt i procent </label>
-                    <input
-                        type="number"
-                        id="percentageTaxInput"
-                        min="28"
-                        max="36"
-                        step="0.01"
-                        placeholder="30.00%"
-                        value={taxPercentage}
-                        onChange={(e) => setTaxPercentage(e.target.value)}
-                    />
-                </div>
 
-                <button type="submit" className='button'>Beräkna</button>
+
             </form>
 
             {taxBracket?
                 <div>
                     <h1>{taxDeduction} reduction each month</h1>
                     <p>skattetabell: {Math.round(kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"])}</p>
-                    <p>Kommunal skatt: {taxDeduction * (taxBracket["kommunal-skatt"]/100)}</p>
+                    <p>Kommunal skatt: {Math.round(taxDeduction * (taxBracket["kommunal-skatt"]/100))}</p>
                     <ul>
                        <li>Förskola, grundskola och gymnasieskola: {communalTax.education}</li>
                         <li>Äldreomsorg och funktionsstöd: {communalTax.elderCare}</li>
@@ -139,10 +111,9 @@ export default function FormComponent() {
                         <li>Övrig verksamhet: {communalTax.other}</li>
                     </ul>
                     <p>Total: {communalTax.education + communalTax.elderCare + communalTax.socialCare + communalTax.culture + communalTax.infrastructureAndFirstResponse + communalTax.other}</p>
-                    <p>Landstingsskatt: {taxBracket["landstings-skatt"]}</p>
-                    <p>Begravnings avgift: {taxBracket["begravnings-avgift"]}</p>
-                    <p>Kyrkoavgift: {kyrkoAvgift ? taxBracket["kyrkoavgift"] : 0}</p>
-                    <p>Totalt: {kyrkoAvgift ? taxBracket["summa, inkl. kyrkoavgift"] : taxBracket["summa, exkl. kyrkoavgift"]}</p>
+                    <p>Landstingsskatt: {Math.round(taxDeduction * (taxBracket["landstings-skatt"] /100))}</p>
+                    <p>Begravnings avgift: {Math.round(taxDeduction *(taxBracket["begravnings-avgift"]/100))}</p>
+                    <p>Kyrkoavgift: {Math.round(kyrkoAvgift ? taxDeduction *(taxBracket["kyrkoavgift"] /100) : 0)}</p>
                     <p>Nettolön: {netSalary}</p>
                 </div>
                 : ""
