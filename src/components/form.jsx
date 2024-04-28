@@ -6,7 +6,7 @@ import getTaxBrackets from "../functions/getTaxBrackets";
 export default function FormComponent() {
     const [taxBrackets, setTaxBrackets] = useState([]);
     const [year, setYear] = useState(2023);
-    const [city, setCity] = useState('MALMÖ');
+    const [city, setCity] = useState();
     const [grossSalary, setGrossSalary] = useState(0);
     const [taxDeduction, setTaxDeduction] = useState(0);
     const [kyrkoAvgift, setKyrkoAvgift] = useState(false);
@@ -84,21 +84,19 @@ export default function FormComponent() {
                             step="1" />
                     </div>
 
-
-                    <div className='flex flex-row mr-2 my-1'>
-                        <label className='mx-1' htmlFor="grossSalaryInput">Bruttolön</label>
-                        <input
-                            type="number"
-                            id="grossSalaryInput"
-                            min="0"
-                            value={grossSalary}
-                            onChange={event => handleOnGrossPayChange(event)}
-                        />
-                    </div>
-                </form>
-            </div>
-
-            <div className='m-10'>
+                { city !== undefined ?
+                <div className='flex flex-row mr-2 my-1'>
+                    <label className='mx-1' htmlFor="grossSalaryInput">Bruttolön</label>
+                    <input
+                        type="number"
+                        id="grossSalaryInput"
+                        min="0"
+                        value={grossSalary}
+                        onChange={event => handleOnGrossPayChange(event)}
+                    />
+                </div> :""
+                }
+            </form>
 
                 {taxBracket &&
                     <div className="bg-gray-50 p-8 rounded-lg shadow-md">
